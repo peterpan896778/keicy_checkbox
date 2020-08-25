@@ -16,6 +16,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     Color falseIconColor,
     Color disabledColor = Colors.grey,
     String label = "",
+    TextStyle labelStyle,
     double labelFontSize = 20,
     Color labelColor = Colors.black,
     bool autovalidate = false,
@@ -49,9 +50,9 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
               padding: EdgeInsets.zero,
               child: state.value["value"]
                   ? _createTappableIcon(state, enabled, readOnly, trueIcon, trueIconColor, disabledColor, iconSize, label, labelFontSize, labelColor,
-                      width, height, fixedHeightState, stateChangePossible, onChangeHandler)
+                      width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle)
                   : _createTappableIcon(state, enabled, readOnly, falseIcon, falseIconColor, disabledColor, iconSize, label, labelFontSize,
-                      labelColor, width, height, fixedHeightState, stateChangePossible, onChangeHandler),
+                      labelColor, width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle),
             );
           },
         );
@@ -72,6 +73,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     bool fixedHeightState,
     bool stateChangePossible,
     Function onChangeHandler,
+    TextStyle labelStyle,
   ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -90,9 +92,9 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
                 Icon(icon, color: enabled ? iconColor : disabledColor, size: iconSize),
                 SizedBox(width: 10),
                 (width == null)
-                    ? Text(label, style: TextStyle(fontSize: labelFontSize, color: labelColor))
+                    ? Text(label, style: labelStyle ?? TextStyle(fontSize: labelFontSize, color: labelColor))
                     : Expanded(
-                        child: Text(label, style: TextStyle(fontSize: labelFontSize, color: labelColor)),
+                        child: Text(label, style: labelStyle ?? TextStyle(fontSize: labelFontSize, color: labelColor)),
                       )
               ],
             ),
@@ -103,7 +105,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
                 height: labelFontSize + 5,
                 child: Text(
                   (state.errorText ?? ""),
-                  style: TextStyle(fontSize: labelFontSize * 0.8, color: Colors.red),
+                  style: TextStyle(fontSize: (labelStyle != null) ? labelStyle.fontSize * 0.8 : labelFontSize * 0.8, color: Colors.red),
                 ),
               )
             : (fixedHeightState) ? SizedBox(height: labelFontSize + 5) : SizedBox(),
