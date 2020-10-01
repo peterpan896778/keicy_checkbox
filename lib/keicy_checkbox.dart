@@ -90,12 +90,14 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Icon(icon, color: enabled ? iconColor : disabledColor, size: iconSize),
-                SizedBox(width: 10),
-                (width == null)
-                    ? Text(label, style: labelStyle ?? TextStyle(fontSize: labelFontSize, color: labelColor))
-                    : Expanded(
-                        child: Text(label, style: labelStyle ?? TextStyle(fontSize: labelFontSize, color: labelColor)),
-                      )
+                (label == "") ? SizedBox() : SizedBox(width: 10),
+                (label == "")
+                    ? SizedBox()
+                    : (width == null)
+                        ? Text(label, style: labelStyle ?? TextStyle(fontSize: labelFontSize, color: labelColor))
+                        : Expanded(
+                            child: Text(label, style: labelStyle ?? TextStyle(fontSize: labelFontSize, color: labelColor)),
+                          )
               ],
             ),
           ),
