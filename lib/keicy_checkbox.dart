@@ -27,6 +27,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     Function onSaveHandler,
     Function onChangeHandler,
     FormFieldValidator<bool> onValidateHandler,
+    CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(
           key: key,
           initialValue: {"value": value, "oldValue": value},
@@ -50,9 +51,9 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
               padding: EdgeInsets.zero,
               child: state.value["value"]
                   ? _createTappableIcon(state, enabled, readOnly, trueIcon, trueIconColor, disabledColor, iconSize, label, labelFontSize, labelColor,
-                      width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle)
+                      width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment)
                   : _createTappableIcon(state, enabled, readOnly, falseIcon, falseIconColor, disabledColor, iconSize, label, labelFontSize,
-                      labelColor, width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle),
+                      labelColor, width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment),
             );
           },
         );
@@ -74,6 +75,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     bool stateChangePossible,
     Function onChangeHandler,
     TextStyle labelStyle,
+    CrossAxisAlignment crossAxisAlignment,
   ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +89,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
             alignment: Alignment.centerLeft,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: crossAxisAlignment,
               children: <Widget>[
                 Icon(icon, color: enabled ? iconColor : disabledColor, size: iconSize),
                 (label == "") ? SizedBox() : SizedBox(width: 10),
