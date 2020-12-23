@@ -37,7 +37,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
             return null;
           },
           onSaved: (value) {
-            onSaveHandler(value["value"]);
+            if (onSaveHandler != null) onSaveHandler(value["value"]);
           },
           builder: (FormFieldState<Map<String, dynamic>> state) {
             trueIconColor = trueIconColor ?? iconColor;
@@ -50,42 +50,10 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
             return Padding(
               padding: EdgeInsets.zero,
               child: state.value["value"]
-                  ? _createTappableIcon(
-                      state,
-                      enabled,
-                      readOnly,
-                      trueIcon,
-                      trueIconColor,
-                      disabledColor,
-                      iconSize,
-                      label,
-                      labelFontSize,
-                      labelColor,
-                      width,
-                      height,
-                      fixedHeightState,
-                      stateChangePossible,
-                      onChangeHandler,
-                      labelStyle,
-                      crossAxisAlignment)
-                  : _createTappableIcon(
-                      state,
-                      enabled,
-                      readOnly,
-                      falseIcon,
-                      falseIconColor,
-                      disabledColor,
-                      iconSize,
-                      label,
-                      labelFontSize,
-                      labelColor,
-                      width,
-                      height,
-                      fixedHeightState,
-                      stateChangePossible,
-                      onChangeHandler,
-                      labelStyle,
-                      crossAxisAlignment),
+                  ? _createTappableIcon(state, enabled, readOnly, trueIcon, trueIconColor, disabledColor, iconSize, label, labelFontSize, labelColor,
+                      width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment)
+                  : _createTappableIcon(state, enabled, readOnly, falseIcon, falseIconColor, disabledColor, iconSize, label, labelFontSize,
+                      labelColor, width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment),
             );
           },
         );
@@ -130,8 +98,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
                     : (width == null)
                         ? Text(label, style: labelStyle ?? TextStyle(fontSize: labelFontSize, color: labelColor))
                         : Expanded(
-                            child:
-                                Text(label, style: labelStyle ?? TextStyle(fontSize: labelFontSize, color: labelColor)),
+                            child: Text(label, style: labelStyle ?? TextStyle(fontSize: labelFontSize, color: labelColor)),
                           )
               ],
             ),
@@ -142,9 +109,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
                 height: labelFontSize + 5,
                 child: Text(
                   (state.errorText ?? ""),
-                  style: TextStyle(
-                      fontSize: (labelStyle != null) ? labelStyle.fontSize * 0.8 : labelFontSize * 0.8,
-                      color: Colors.red),
+                  style: TextStyle(fontSize: (labelStyle != null) ? labelStyle.fontSize * 0.8 : labelFontSize * 0.8, color: Colors.red),
                 ),
               )
             : (fixedHeightState) ? SizedBox(height: labelFontSize + 5) : SizedBox(),
