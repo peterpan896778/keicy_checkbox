@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class KeicyCheckBox extends FormField<Map<String, dynamic>> {
   KeicyCheckBox({
     Key key,
-    @required double width,
+    double width,
     @required double height,
     bool value = false,
     IconData trueIcon = Icons.check_box,
     IconData falseIcon = Icons.check_box_outline_blank,
-    double iconSize = 25,
+    double iconSize,
     Color iconColor = Colors.blue,
     Color trueIconColor,
     Color falseIconColor,
@@ -19,10 +19,11 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     TextStyle labelStyle,
     double labelFontSize = 20,
     Color labelColor = Colors.black,
+    double labelSpacing = 10,
     bool autovalidate = false,
     bool enabled = true,
     bool readOnly = false,
-    bool fixedHeightState = true,
+    bool fixedHeightState = false,
     bool stateChangePossible = false,
     Function onSaveHandler,
     Function onChangeHandler,
@@ -31,7 +32,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
   }) : super(
           key: key,
           initialValue: {"value": value, "oldValue": value},
-          autovalidate: autovalidate,
+          autovalidateMode: autovalidate ? AutovalidateMode.always : AutovalidateMode.onUserInteraction,
           validator: (value) {
             if (onValidateHandler != null) return onValidateHandler(value["value"]);
             return null;
@@ -50,10 +51,10 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
             return Padding(
               padding: EdgeInsets.zero,
               child: state.value["value"]
-                  ? _createTappableIcon(state, enabled, readOnly, trueIcon, trueIconColor, disabledColor, iconSize, label, labelFontSize, labelColor,
-                      width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment)
-                  : _createTappableIcon(state, enabled, readOnly, falseIcon, falseIconColor, disabledColor, iconSize, label, labelFontSize,
-                      labelColor, width, height, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment),
+                  ? _createTappableIcon(state, enabled, readOnly, trueIcon, trueIconColor, disabledColor, iconSize ?? height, label, labelFontSize, labelColor, width, height, fixedHeightState,
+                      stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment, labelSpacing)
+                  : _createTappableIcon(state, enabled, readOnly, falseIcon, falseIconColor, disabledColor, iconSize ?? height, label, labelFontSize, labelColor, width, height, fixedHeightState,
+                      stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment, labelSpacing),
             );
           },
         );
@@ -76,6 +77,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     Function onChangeHandler,
     TextStyle labelStyle,
     CrossAxisAlignment crossAxisAlignment,
+    double labelSpacing,
   ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -92,7 +94,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
               crossAxisAlignment: crossAxisAlignment,
               children: <Widget>[
                 Icon(icon, color: enabled ? iconColor : disabledColor, size: iconSize),
-                (label == "") ? SizedBox() : SizedBox(width: 10),
+                (label == "") ? SizedBox() : SizedBox(width: labelSpacing),
                 (label == "")
                     ? SizedBox()
                     : (width == null)
@@ -112,7 +114,9 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
                   style: TextStyle(fontSize: (labelStyle != null) ? labelStyle.fontSize * 0.8 : labelFontSize * 0.8, color: Colors.red),
                 ),
               )
-            : (fixedHeightState) ? SizedBox(height: labelFontSize + 5) : SizedBox(),
+            : (fixedHeightState)
+                ? SizedBox(height: labelFontSize + 5)
+                : SizedBox(),
       ],
     );
   }
