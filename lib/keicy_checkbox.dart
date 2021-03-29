@@ -62,7 +62,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     FormFieldState<Map<String, dynamic>> state,
     bool enabled,
     bool readOnly,
-    IconData icon,
+    dynamic icon,
     Color iconColor,
     Color disabledColor,
     double iconSize,
