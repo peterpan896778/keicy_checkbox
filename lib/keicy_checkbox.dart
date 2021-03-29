@@ -8,8 +8,8 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     double width,
     @required double iconSize,
     bool value = false,
-    IconData trueIcon = Icons.check_box,
-    IconData falseIcon = Icons.check_box_outline_blank,
+    dynamic trueIcon = Icons.check_box,
+    dynamic falseIcon = Icons.check_box_outline_blank,
     Color iconColor = Colors.blue,
     Color trueIconColor,
     Color falseIconColor,
@@ -90,7 +90,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
               mainAxisAlignment: (label == "") ? MainAxisAlignment.center : MainAxisAlignment.start,
               crossAxisAlignment: crossAxisAlignment,
               children: <Widget>[
-                Icon(icon, color: enabled ? iconColor : disabledColor, size: iconSize),
+                icon.runtimeType == IconData ? Icon(icon, color: enabled ? iconColor : disabledColor, size: iconSize) : icon,
                 (label == "") ? SizedBox() : SizedBox(width: labelSpacing),
                 (label == "")
                     ? SizedBox()
