@@ -6,11 +6,10 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
   KeicyCheckBox({
     Key key,
     double width,
-    @required double height,
+    @required double iconSize,
     bool value = false,
     IconData trueIcon = Icons.check_box,
     IconData falseIcon = Icons.check_box_outline_blank,
-    double iconSize,
     Color iconColor = Colors.blue,
     Color trueIconColor,
     Color falseIconColor,
@@ -51,10 +50,10 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
             return Padding(
               padding: EdgeInsets.zero,
               child: state.value["value"]
-                  ? _createTappableIcon(state, enabled, readOnly, trueIcon, trueIconColor, disabledColor, iconSize ?? height, label, labelFontSize, labelColor, width, height, fixedHeightState,
-                      stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment, labelSpacing)
-                  : _createTappableIcon(state, enabled, readOnly, falseIcon, falseIconColor, disabledColor, iconSize ?? height, label, labelFontSize, labelColor, width, height, fixedHeightState,
-                      stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment, labelSpacing),
+                  ? _createTappableIcon(state, enabled, readOnly, trueIcon, trueIconColor, disabledColor, iconSize, label, labelFontSize, labelColor,
+                      width, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment, labelSpacing)
+                  : _createTappableIcon(state, enabled, readOnly, falseIcon, falseIconColor, disabledColor, iconSize, label, labelFontSize,
+                      labelColor, width, fixedHeightState, stateChangePossible, onChangeHandler, labelStyle, crossAxisAlignment, labelSpacing),
             );
           },
         );
@@ -71,7 +70,6 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     double labelFontSize,
     Color labelColor,
     double width,
-    double height,
     bool fixedHeightState,
     bool stateChangePossible,
     Function onChangeHandler,
@@ -87,7 +85,6 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
           onTap: (enabled && !readOnly) ? () => tapHandler(state, stateChangePossible, onChangeHandler) : null,
           child: Container(
             width: width,
-            height: height,
             alignment: Alignment.center,
             child: Row(
               mainAxisAlignment: (label == "") ? MainAxisAlignment.center : MainAxisAlignment.start,
