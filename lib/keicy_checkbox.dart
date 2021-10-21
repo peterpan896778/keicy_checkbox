@@ -105,6 +105,7 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
           child: Container(
             alignment: Alignment.center,
             child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
                 Icon(icon, color: enabled ? iconColor : disabledColor, size: iconSize),
                 (label == "") ? const SizedBox() : SizedBox(width: labelSpacing),
