@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class KeicyCheckBox extends FormField<Map<String, dynamic>> {
   KeicyCheckBox({
     Key? key,
-    double? width,
     bool? value = false,
     IconData? trueIcon = Icons.check_box,
     IconData? falseIcon = Icons.check_box_outline_blank,
@@ -24,7 +23,6 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     Function(bool)? onSaveHandler,
     Function(bool)? onChangeHandler,
     FormFieldValidator<bool>? onValidateHandler,
-    CrossAxisAlignment? crossAxisAlignment = CrossAxisAlignment.center,
   }) : super(
           key: key,
           initialValue: {"value": value, "oldValue": value},
@@ -57,11 +55,9 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
                       disabledColor,
                       iconSize,
                       label,
-                      width,
                       stateChangePossible,
                       onChangeHandler,
                       labelStyle,
-                      crossAxisAlignment,
                       labelSpacing,
                     )
                   : _createTappableIcon(
@@ -73,11 +69,9 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
                       disabledColor,
                       iconSize,
                       label,
-                      width,
                       stateChangePossible,
                       onChangeHandler,
                       labelStyle,
-                      crossAxisAlignment,
                       labelSpacing,
                     ),
             );
@@ -93,11 +87,9 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
     Color? disabledColor,
     double? iconSize,
     String? label,
-    double? width,
     bool? stateChangePossible,
     Function(bool)? onChangeHandler,
     TextStyle? labelStyle,
-    CrossAxisAlignment? crossAxisAlignment,
     double? labelSpacing,
   ) {
     return Column(
@@ -111,22 +103,12 @@ class KeicyCheckBox extends FormField<Map<String, dynamic>> {
                 }
               : null,
           child: Container(
-            width: width,
-            // height: height,
             alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: (label == "") ? MainAxisAlignment.center : MainAxisAlignment.start,
-              crossAxisAlignment: crossAxisAlignment!,
+            child: Wrap(
               children: <Widget>[
                 Icon(icon, color: enabled ? iconColor : disabledColor, size: iconSize),
                 (label == "") ? const SizedBox() : SizedBox(width: labelSpacing),
-                (label == "")
-                    ? const SizedBox()
-                    : (width == null)
-                        ? Text(label!, style: labelStyle)
-                        : Expanded(
-                            child: Text(label!, style: labelStyle),
-                          )
+                (label == "") ? const SizedBox() : Text(label!, style: labelStyle)
               ],
             ),
           ),
